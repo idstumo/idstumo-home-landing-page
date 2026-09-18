@@ -3,6 +3,8 @@ const message = document.getElementById("message");
 const enterButton = document.getElementById("enter-button");
 const status = document.getElementById("status");
 
+const CONTACT = "contact@idstumo.com";
+
 function setStatus(text, kind = "") {
   status.textContent = text;
   status.className = `status ${kind}`.trim();
@@ -22,16 +24,28 @@ form.addEventListener("submit", (event) => {
 
   const text = message.value.trim();
   const subject = encodeURIComponent("Wave from idstumo.com");
-
-  // Always open the visitor's default email app, addressed to contact@idstumo.com.
-  // If they typed a message, carry it into the email body.
-  let href = `mailto:contact@idstumo.com?subject=${subject}`;
+  let href = `mailto:${CONTACT}?subject=${subject}`;
   if (text) {
     href += `&body=${encodeURIComponent(text)}`;
   }
+
+  // 1) Try to open the visitor's default mail app. This works on phones and on
+  //    any computer that has a default email program set.
   window.location.href = href;
 
-  setStatus("Opening your mail app…", "success");
+  // 2) A mailto: link silently does nothing when no default mail app is set
+  //    (common on desktops), so always leave a reliable fallback: copy the
+  //    address to the clipboard and show it, so they can reach us either way.
+  const copy = navigator.clipboard && navigator.clipboard.writeText(CONTACT);
+  if (copy && copy.then) {
+    copy.then(
+      () => setStatus(`Address copied — email ${CONTACT}`, "success"),
+      () => setStatus(`Email ${CONTACT}`, "success")
+    );
+  } else {
+    setStatus(`Email ${CONTACT}`, "success");
+  }
+
   message.focus();
 });
 
