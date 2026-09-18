@@ -21,18 +21,15 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const text = message.value.trim();
-
-  if (!text) {
-    message.focus();
-    return;
-  }
-
   const subject = encodeURIComponent("Wave from idstumo.com");
-  const body = encodeURIComponent(text);
 
-  // Open the visitor's normal/default email application.
-  window.location.href =
-    `mailto:contact@idstumo.com?subject=${subject}&body=${body}`;
+  // Always open the visitor's default email app, addressed to contact@idstumo.com.
+  // If they typed a message, carry it into the email body.
+  let href = `mailto:contact@idstumo.com?subject=${subject}`;
+  if (text) {
+    href += `&body=${encodeURIComponent(text)}`;
+  }
+  window.location.href = href;
 
   setStatus("Opening your mail app…", "success");
   message.focus();
