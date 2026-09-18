@@ -1,0 +1,204 @@
+/* IDSTUMO — monochrome landing page */
+
+:root {
+  --black: #000;
+  --white: #fff;
+  --gray: #bdbdbd;
+  --dark-gray: #0b0b0b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: "Rye", Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.page {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 6vh 6vw;
+}
+
+.hero {
+  width: min(900px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  display: block;
+  width: min(780px, 88vw);
+  height: auto;
+  max-height: 31vh;
+  object-fit: contain;
+  margin-bottom: clamp(38px, 7vh, 74px);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.interaction {
+  width: min(580px, 86vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#message {
+  width: 100%;
+  height: 66px;
+  padding: 10px 16px 8px;
+  border: 1px solid var(--gray);
+  border-radius: 0;
+  outline: none;
+  background: var(--black);
+  color: var(--white);
+  caret-color: var(--white);
+  font-size: clamp(18px, 2.2vw, 26px);
+  line-height: 1;
+  text-align: center;
+}
+
+#message:focus {
+  border-color: var(--white);
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.button {
+  min-width: 132px;
+  padding: 13px 22px 11px;
+  border: 1px solid var(--white);
+  border-radius: 0;
+  background: var(--black);
+  color: var(--white);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  background: var(--white);
+  color: var(--black);
+  outline: none;
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.status {
+  min-height: 1.6em;
+  margin: 20px 0 0;
+  color: var(--white);
+  font-size: clamp(16px, 2vw, 21px);
+  text-align: center;
+}
+
+.status.error {
+  animation: status-in 160ms ease-out;
+}
+
+.status.success {
+  color: var(--gray);
+  animation: status-in 160ms ease-out;
+}
+
+@keyframes status-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 520px) {
+  .page {
+    padding: 5vh 5vw;
+  }
+
+  .logo {
+    width: min(720px, 94vw);
+    margin-bottom: 48px;
+  }
+
+  #message {
+    height: 58px;
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .button {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+/* Screen-reader-only label */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/*
+  Hidden link:
+  It intentionally uses a nearly-black color and tiny hit area.
+  It remains keyboard/click accessible if someone knows where it is.
+*/
+.secret-link {
+  position: fixed;
+  right: 5px;
+  bottom: 5px;
+  width: 13px;
+  height: 13px;
+  color: #050505;
+  background: #000;
+  text-decoration: none;
+  font-size: 1px;
+  line-height: 13px;
+  z-index: 20;
+}
+
+.secret-link:hover,
+.secret-link:focus {
+  color: #080808;
+  background: #000;
+  outline: none;
+}

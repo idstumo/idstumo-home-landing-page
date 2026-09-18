@@ -1,0 +1,9 @@
+IDSTUMO — Namecheap DNS for GitHub Pages
+
+A @ 185.199.108.153
+A @ 185.199.109.153
+A @ 185.199.110.153
+A @ 185.199.111.153
+CNAME www YOUR-GITHUB-USERNAME.github.io
+
+GitHub Pages custom domain: idstumo.com

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="IDSTUMO">
+  <meta name="theme-color" content="#000000">
+  <title>IDSTUMO</title>
+
+  <!-- Free Google Font with the same vintage-Western poster character as the supplied flyer. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rye&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-label="IDSTUMO">
+      <img
+        class="logo"
+        src="assets/idstumo-logo.png"
+        alt="IDSTUMO"
+        width="612"
+        height="177"
+      >
+
+      <form id="idstumo-form" class="interaction" novalidate>
+        <label class="sr-only" for="message">Message</label>
+        <input
+          id="message"
+          name="message"
+          type="text"
+          autocomplete="off"
+          maxlength="500"
+          spellcheck="false"
+          placeholder=""
+          aria-describedby="status"
+        >
+
+        <div class="actions">
+          <button class="button" id="enter-button" type="button">Enter</button>
+          <button class="button" id="wave-button" type="submit">Wave</button>
+        </div>
+
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <!-- Deliberately subtle: blends into the black background. -->
+  <a
+    class="secret-link"
+    href="https://youtu.be/U3m3fYrY2_Y?t=2365"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Open hidden link"
+    title=""
+  >.</a>
+
+  <script src="script.js"></script>
+</body>
+</html>
