@@ -29,24 +29,25 @@ form.addEventListener("submit", (event) => {
     href += `&body=${encodeURIComponent(text)}`;
   }
 
-  // 1) Try to open the visitor's default mail app. This works on phones and on
-  //    any computer that has a default email program set.
+  setStatus("");
+
+  // When a mail app opens, the page loses focus / becomes hidden. Watch for
+  // that: if it never happens, there's likely no default mail app, so show the
+  // address as a fallback.
+  let mailAppOpened = false;
+  const markOpened = () => { mailAppOpened = true; };
+  window.addEventListener("blur", markOpened, { once: true });
+  document.addEventListener("visibilitychange", markOpened, { once: true });
+
   window.location.href = href;
 
-  // 2) A mailto: link silently does nothing when no default mail app is set
-  //    (common on desktops), so always leave a reliable fallback: copy the
-  //    address to the clipboard and show it, so they can reach us either way.
-  const copy = navigator.clipboard && navigator.clipboard.writeText(CONTACT);
-  if (copy && copy.then) {
-    copy.then(
-      () => setStatus(`Address copied — email ${CONTACT}`, "success"),
-      () => setStatus(`Email ${CONTACT}`, "success")
-    );
-  } else {
-    setStatus(`Email ${CONTACT}`, "success");
-  }
-
-  message.focus();
+  window.setTimeout(() => {
+    window.removeEventListener("blur", markOpened);
+    document.removeEventListener("visibilitychange", markOpened);
+    if (!mailAppOpened && !document.hidden) {
+      setStatus(`email ${CONTACT}`, "success");
+    }
+  }, 1200);
 });
 
 // Put the cursor in the box on desktop. A short delay avoids fighting page load.
